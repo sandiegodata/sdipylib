@@ -17,7 +17,7 @@ if sys.argv[-1] == 'publish':
     sys.exit()
 
 
-with open(os.path.join(os.path.dirname(__file__), 'README.md')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as f:
     readme = f.read()
 
 packages = [
@@ -30,10 +30,7 @@ scripts=[
 
 package_data = {"": []}
 
-requires = [
-    'boto',
-    'pandas'
-]
+requires = ['boto']
 
 classifiers = [
         'Development Status :: 2 - Pre-Alpha',

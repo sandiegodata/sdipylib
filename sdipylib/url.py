@@ -12,15 +12,28 @@ def cache_url(url):
     
     parts = urlparse.urlparse(url)
     
-    if not parts.scheme in ['http','https', 'ftp']:
+    if not parts.scheme in ['http','https', 'ftp', 's3']:
         raise Exception("Probably not a valid URL")
+    
+    verify = True
+    if parts.scheme == 's3':
+        import boto
+        # Convert it into an expiring URL and use the normal process. 
+        conn = boto.connect_s3()
+        b = conn.get_bucket(parts.netloc)
+        k = boto.s3.key.Key(b)
+        k.key = parts.path
+        url = k.generate_url(60)
+        verify = False # Hostnames never match cert
     
     # Return the file directly if it already exists
     fn = os.path.basename(parts.path)
     if os.path.exists(fn):
         return os.path.abspath(fn)
     
-    r = requests.get(url, stream=True)
+    r = requests.get(url, stream=True, verify=verify)
+
+    r.raise_for_status()
 
     total = 0
     with open(fn, 'wb') as fd:
