@@ -4,7 +4,10 @@ import requests
 def cache_url(url):
     """Load a url to a local file, or return the file path  if it already exists
     This function will download the given URL to the current directory, with a file name of the
-    last path element in the URL. """
+    last path element in the URL. 
+    
+    
+    """
     import os
     import urlparse
     from IPython.display import display, clear_output
@@ -45,3 +48,32 @@ def cache_url(url):
             sys.stdout.flush()
             
     return os.path.abspath(fn)
+
+def download_ambry_db(url,name=None):  
+    """Download an Ambry database file from the repository. """
+    import gzip
+    import sys
+    import os
+    
+    if not name:
+        name = os.path.basename(url)
+    
+    if not os.path.exists(name+'.gz'):
+        print 'Downloading:', url
+        sys.stdout.flush()
+        import urllib
+        urllib.urlretrieve (url, name+'.gz')
+    else:
+        print 'Already downloaded:', url
+        sys.stdout.flush()
+
+    if not os.path.exists(name):
+        print 'Extracting to:',name
+        sys.stdout.flush()
+        with open(name,'wb') as out_f, gzip.open(name+'.gz', 'rb') as in_f:
+            out_f.write(in_f.read())   
+    else:
+        print 'Already extracted:', name
+        sys.stdout.flush()
+
+    
