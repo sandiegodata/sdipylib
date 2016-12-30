@@ -31,3 +31,23 @@ def make_col_map(schema_df):
         col_map[k+'_m90'] = 'Margin for '+v
         
     return col_map
+    
+def load_table(table, summary_level, year=2014, release=5):
+    url_params = {
+        'base_url': 'http://extracts.census.civicknowledge.com',
+        'year': 2014,
+        'release': 5, 
+        'summary_level': '140_tract',
+        'table': 'b01001'
+    }
+    
+    template = '{base_url}/{year}/{release}/{summary_level}/{table}'
+    data_template = template+".csv"
+    schema_template = template+'-schema.csv'
+
+    df = pd.read_csv(data_template.format(**url_params))
+    schema_df = pd.read_csv(schema_template.format(**url_params))
+    
+    col_map = make_col_map(schema_df)
+    
+    return df, schema_df, col_map
