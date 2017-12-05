@@ -44,7 +44,7 @@ def cache_url(url):
             fd.write(chunk)
             clear_output(wait=True)
             total += len(chunk)
-            print "Wrote {} bytes, total {}".format(len(chunk), total)
+            print("Wrote {} bytes, total {}".format(len(chunk), total))
             sys.stdout.flush()
             
     return os.path.abspath(fn)
@@ -59,21 +59,21 @@ def download_ambry_db(url,name=None):
         name = os.path.basename(url)
     
     if not os.path.exists(name+'.gz'):
-        print 'Downloading:', url
+        print('Downloading:', url)
         sys.stdout.flush()
-        import urllib
-        urllib.urlretrieve (url, name+'.gz')
+        from urllib.request import urlretrieve
+        urlretrieve (url, name+'.gz')
     else:
-        print 'Already downloaded:', url
+        print('Already downloaded:', url)
         sys.stdout.flush()
 
     if not os.path.exists(name):
-        print 'Extracting to:',name
+        print('Extracting to:',name)
         sys.stdout.flush()
         with open(name,'wb') as out_f, gzip.open(name+'.gz', 'rb') as in_f:
             out_f.write(in_f.read())   
     else:
-        print 'Already extracted:', name
+        print('Already extracted:', name)
         sys.stdout.flush()
 
     

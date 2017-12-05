@@ -9,9 +9,6 @@ try:
 except ImportError:
     from distutils.core import setup
 
-import sdipylib
-
-
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
@@ -46,14 +43,14 @@ classifiers = [
 
 setup(
     name='sdipylib',
-    version=sdipylib.__version__,
+    version= '0.5.0',
     description='San Diego Regional Data LIbrary library for IPython data analysis',
     long_description=readme,
     packages=packages,
     package_data=package_data,
     scripts=scripts,
     install_requires=requires,
-    author=sdipylib.__author__,
+    author='Eric Busboom',
     author_email='eric@sandiegodata.org',
     url='https://github.com/sdrdl/sdipylib',
     license='BSD',
