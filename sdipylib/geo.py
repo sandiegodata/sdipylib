@@ -34,7 +34,7 @@ def total_centroid(df):
     return list(reversed(df.geometry.unary_union.centroid.coords[0]))
 
 
-def folium_map(df, data_column, tiles='Stamen Toner', zoom_start=12, **kwargs):
+def folium_map(df, data_column, tiles='Stamen Toner', fill_color='RdYlGn', zoom_start=12, **kwargs):
 
 
     import folium
@@ -48,7 +48,7 @@ def folium_map(df, data_column, tiles='Stamen Toner', zoom_start=12, **kwargs):
     #                              _['non_min_r'].max(), 6, dtype=float).tolist()
 
     choro_args = dict(
-         fill_color='RdYlGn',
+         fill_color=fill_color,
          fill_opacity=.6,
          line_weight=.7
     )
