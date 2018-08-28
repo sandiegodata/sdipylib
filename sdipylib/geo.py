@@ -36,7 +36,6 @@ def total_centroid(df):
 
 def folium_map(df, data_column, tiles='Stamen Toner', fill_color='RdYlGn', zoom_start=12, **kwargs):
 
-
     import folium
     mapa = folium.Map(location=total_centroid(df),
                tiles=tiles, zoom_start=zoom_start)

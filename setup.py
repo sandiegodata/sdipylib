@@ -43,7 +43,7 @@ classifiers = [
 
 setup(
     name='sdipylib',
-    version= '0.5.1',
+    version= '0.5.2',
     description='San Diego Regional Data LIbrary library for IPython data analysis',
     long_description=readme,
     packages=packages,
